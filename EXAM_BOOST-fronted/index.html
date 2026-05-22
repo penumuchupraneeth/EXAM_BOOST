@@ -1019,7 +1019,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 48p
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
-
+window.onload = function() {
+  loadAllResources();
+};
 
 
  
@@ -1335,15 +1337,39 @@ async function loadAllResources() {
       }
     ]
   };
+const icons = {
+  video:'🎬'
+};
 
-  const icons = {
-    notes:'📄',
-    ppt:'📊',
-    'past-paper':'📋',
-    textbook:'📖',
-    video:'🎬',
-    other:'📁'
-  };
+grid.innerHTML = data.resources.map(r => `
+  <div class="res-grid-card"
+    onclick="window.open('${r.fileUrl}','_blank')">
+
+    <div class="rgc-icon">
+      ${icons[r.type] || '📁'}
+    </div>
+
+    <div class="rgc-title">
+      ${r.title}
+    </div>
+
+    <div class="rgc-meta">
+      ${r.courseCode} · ${r.subject}
+    </div>
+
+    <div class="rgc-footer">
+      <span class="rgc-views">
+        👁 ${r.views} views
+      </span>
+
+      <span class="rgc-open">
+        Open
+      </span>
+    </div>
+
+  </div>
+`).join('');
+  
 
   grid.innerHTML = data.resources.map(r => `
     <div class="res-grid-card"
@@ -1374,7 +1400,6 @@ async function loadAllResources() {
   `).join('');
 }
 
- loadAllResources();
 // ── Load categories ────────────────────────────────────────────────────────
 async function loadCategories() {
   try {
