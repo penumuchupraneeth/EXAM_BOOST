@@ -1255,104 +1255,126 @@ else {
 
 // ── Load ALL resources grid ────────────────────────────────────────────────
 async function loadAllResources() {
+
   const grid = document.getElementById('allResourcesGrid');
 
-  try {
-  
+  if (!grid) return;
 
-    // Fallback resources if DB empty
-    if (!data.resources || data.resources.length === 0) {
-     
-     data.resources = [
-  {
-    title: "Apna College DSA Playlist",
-    type: "video",
-    subject: "DSA",
-    courseCode: "YouTube",
-    views: 12000,
-    fileUrl: "https://www.youtube.com/watch?v=rZ41y93P2Qo"
-  },
-  {
-    title: "Gate Smashers DBMS",
-    type: "video",
-    subject: "DBMS",
-    courseCode: "YouTube",
-    views: 9800,
-    fileUrl: "https://www.youtube.com/watch?v=dl00fOOYLOM"
-  },
-  {
-    title: "NPTEL Operating Systems",
-    type: "video",
-    subject: "Operating Systems",
-    courseCode: "NPTEL",
-    views: 7500,
-    fileUrl: "https://archive.nptel.ac.in/courses/106/106/106106144/"
-  },
-  {
-    title: "Python for Data Science",
-    type: "video",
-    subject: "Data Science",
-    courseCode: "YouTube",
-    views: 18000,
-    fileUrl: "https://www.youtube.com/watch?v=LHBE6Q9XlzI"
-  },
-  {
-    title: "Machine Learning Full Course",
-    type: "video",
-    subject: "Machine Learning",
-    courseCode: "YouTube",
-    views: 21000,
-    fileUrl: "https://www.youtube.com/watch?v=GwIo3gDZCVQ"
-  },
-  {
-    title: "Civil Engineering Basics",
-    type: "video",
-    subject: "Civil Engineering",
-    courseCode: "YouTube",
-    views: 8700,
-    fileUrl: "https://www.youtube.com/watch?v=0bHoB32fuj0"
-  }
-     ];
-    }
+  const data = {
+    resources: [
+      {
+        title: "Apna College DSA Playlist",
+        type: "video",
+        subject: "DSA",
+        courseCode: "YouTube",
+        views: 12000,
+        fileUrl: "https://www.youtube.com/watch?v=WQoB2z67hvY"
+      },
 
-    const icons = {
-      notes:'📄',
-      ppt:'📊',
-      'past-paper':'📋',
-      textbook:'📖',
-      video:'🎬',
-      other:'📁'
-    };
+      {
+        title: "Gate Smashers DBMS",
+        type: "video",
+        subject: "DBMS",
+        courseCode: "YouTube",
+        views: 9800,
+        fileUrl: "https://www.youtube.com/watch?v=kBdlM6hNDAE"
+      },
 
-    grid.innerHTML = data.resources.map(r => {
-      const safeUrl = (r.fileUrl||'').replace(/'/g,'');
-      const safeTitle = (r.title||'').replace(/'/g,'').replace(/"/g,'');
+      {
+        title: "Operating Systems Full Course",
+        type: "video",
+        subject: "Operating Systems",
+        courseCode: "YouTube",
+        views: 7500,
+        fileUrl: "https://www.youtube.com/watch?v=3obEP8eLsCw"
+      },
 
-      return `
-      <div class="res-grid-card" onclick="openResource('${safeUrl}','${safeTitle}')">
-        <div class="rgc-icon">${icons[r.type]||'📁'}</div>
-        <div class="rgc-title">${r.title}</div>
-        <div class="rgc-meta">${r.courseCode||''} · ${r.subject}</div>
-        <div class="rgc-footer">
-          <span class="rgc-views">👁 ${r.views} views</span>
-          <span class="rgc-open">
-            Open
-            <span class="arrow-anim">
-              <span class="arr">›</span>
-              <span class="arr">›</span>
-            </span>
-          </span>
-        </div>
-      </div>`;
-    }).join('');
+      {
+        title: "Python for Data Science",
+        type: "video",
+        subject: "Data Science",
+        courseCode: "YouTube",
+        views: 18000,
+        fileUrl: "https://www.youtube.com/watch?v=LHBE6Q9XlzI"
+      },
 
-  } catch(err) {
-    grid.innerHTML = `
-      <div style="color:var(--orange);font-family:DM Mono,monospace;font-size:12px;">
-        ⚠️ Backend offline.
-      </div>`;
-  }
+      {
+        title: "Machine Learning Full Course",
+        type: "video",
+        subject: "Machine Learning",
+        courseCode: "YouTube",
+        views: 21000,
+        fileUrl: "https://www.youtube.com/watch?v=GwIo3gDZCVQ"
+      },
+
+      {
+        title: "Java Full Course",
+        type: "video",
+        subject: "Java",
+        courseCode: "YouTube",
+        views: 24000,
+        fileUrl: "https://www.youtube.com/watch?v=BGTx91t8q50"
+      },
+
+      {
+        title: "Web Development Bootcamp",
+        type: "video",
+        subject: "Web Development",
+        courseCode: "YouTube",
+        views: 26000,
+        fileUrl: "https://www.youtube.com/watch?v=zJSY8tbf_ys"
+      },
+
+      {
+        title: "Civil Engineering Basics",
+        type: "video",
+        subject: "Civil Engineering",
+        courseCode: "YouTube",
+        views: 8700,
+        fileUrl: "https://www.youtube.com/watch?v=VgP2c0by9mA"
+      }
+    ]
+  };
+
+  const icons = {
+    notes:'📄',
+    ppt:'📊',
+    'past-paper':'📋',
+    textbook:'📖',
+    video:'🎬',
+    other:'📁'
+  };
+
+  grid.innerHTML = data.resources.map(r => `
+    <div class="res-grid-card"
+      onclick="window.open('${r.fileUrl}','_blank')">
+
+      <div class="rgc-icon">
+        ${icons[r.type] || '📁'}
+      </div>
+
+      <div class="rgc-title">
+        ${r.title}
+      </div>
+
+      <div class="rgc-meta">
+        ${r.courseCode} · ${r.subject}
+      </div>
+
+      <div class="rgc-footer">
+        <span class="rgc-views">
+          👁 ${r.views} views
+        </span>
+
+        <span class="rgc-open">
+          Open
+        </span>
+      </div>
+    </div>
+  `).join('');
 }
+
+ loadAllResources();
 // ── Load categories ────────────────────────────────────────────────────────
 async function loadCategories() {
   try {
