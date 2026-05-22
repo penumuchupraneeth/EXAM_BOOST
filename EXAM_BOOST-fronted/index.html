@@ -1142,98 +1142,97 @@ async function loadResources(search='', type='') {
     const res = await fetch(url);
     const data = await res.json();
  if (!data.resources || data.resources.length === 0) {
-
-  if (name === 'DSA') {
-    data.resources = [
-      {
-        title: "Apna College DSA Playlist",
-        type: "video",
-        subject: "DSA",
-        courseCode: "YouTube",
-        views: 12000,
-        fileUrl: "https://www.youtube.com/playlist?list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"
-      }
-    ];
-  }
-
-  else if (name === 'DBMS') {
-    data.resources = [
-      {
-        title: "Gate Smashers DBMS",
-        type: "video",
-        subject: "DBMS",
-        courseCode: "YouTube",
-        views: 9800,
-        fileUrl: "https://www.youtube.com/playlist?list=PLxCzCOWd7aiGFBD2-2joCpWOLUrDLvVV_"
-      }
-    ];
-  }
-
-  else if (name === 'Operating Systems') {
-    data.resources = [
-      {
-        title: "NPTEL Operating Systems",
-        type: "video",
-        subject: "Operating Systems",
-        courseCode: "NPTEL",
-        views: 7500,
-        fileUrl: "https://archive.nptel.ac.in/courses/106/106/106106144/"
-      }
-    ];
-  }
-
-  else if (name === 'Data Science') {
-    data.resources = [
-      {
-        title: "Python for Data Science",
-        type: "video",
-        subject: "Data Science",
-        courseCode: "YouTube",
-        views: 18000,
-        fileUrl: "https://www.youtube.com/watch?v=LHBE6Q9XlzI"
-      }
-    ];
-  }
-
-  else if (name === 'Machine Learning') {
-    data.resources = [
-      {
-        title: "Machine Learning Full Course",
-        type: "video",
-        subject: "Machine Learning",
-        courseCode: "YouTube",
-        views: 21000,
-        fileUrl: "https://www.youtube.com/watch?v=GwIo3gDZCVQ"
-      }
-    ];
-  }
-
-  else if (name === 'Civil Engineering') {
-    data.resources = [
-      {
-        title: "Civil Engineering Basics",
-        type: "video",
-        subject: "Civil Engineering",
-        courseCode: "YouTube",
-        views: 8700,
-        fileUrl: "https://www.youtube.com/watch?v=0bHoB32fuj0"
-      }
-    ];
-  }
-
-  else {
-    data.resources = [
-      {
-        title: "General Engineering Resource",
-        type: "video",
-        subject: name,
-        courseCode: "YouTube",
-        views: 5000,
-        fileUrl: "https://www.youtube.com/"
-      }
-    ];
-  }
+if (name === 'DSA') {
+  data.resources = [
+    {
+      title: "Apna College DSA Playlist",
+      type: "video",
+      subject: "DSA",
+      courseCode: "YouTube",
+      views: 12000,
+      fileUrl: "https://www.youtube.com/watch?v=WQoB2z67hvY"
+    }
+  ];
 }
+
+else if (name === 'DBMS') {
+  data.resources = [
+    {
+      title: "Gate Smashers DBMS",
+      type: "video",
+      subject: "DBMS",
+      courseCode: "YouTube",
+      views: 9800,
+      fileUrl: "https://www.youtube.com/watch?v=kBdlM6hNDAE"
+    }
+  ];
+}
+
+else if (name === 'Operating Systems') {
+  data.resources = [
+    {
+      title: "Operating Systems Full Course",
+      type: "video",
+      subject: "Operating Systems",
+      courseCode: "YouTube",
+      views: 7500,
+      fileUrl: "https://www.youtube.com/watch?v=3obEP8eLsCw"
+    }
+  ];
+}
+
+else if (name === 'Data Science') {
+  data.resources = [
+    {
+      title: "Python for Data Science",
+      type: "video",
+      subject: "Data Science",
+      courseCode: "YouTube",
+      views: 18000,
+      fileUrl: "https://www.youtube.com/watch?v=LHBE6Q9XlzI"
+    }
+  ];
+}
+
+else if (name === 'Machine Learning') {
+  data.resources = [
+    {
+      title: "Machine Learning Full Course",
+      type: "video",
+      subject: "Machine Learning",
+      courseCode: "YouTube",
+      views: 21000,
+      fileUrl: "https://www.youtube.com/watch?v=GwIo3gDZCVQ"
+    }
+  ];
+}
+
+else if (name === 'Civil Engineering') {
+  data.resources = [
+    {
+      title: "Civil Engineering Basics",
+      type: "video",
+      subject: "Civil Engineering",
+      courseCode: "YouTube",
+      views: 8700,
+      fileUrl: "https://www.youtube.com/watch?v=VgP2c0by9mA"
+    }
+  ];
+}
+
+else {
+  data.resources = [
+    {
+      title: "General Engineering Resource",
+      type: "video",
+      subject: name,
+      courseCode: "YouTube",
+      views: 5000,
+      fileUrl: "https://www.youtube.com/watch?v=zOjov-2OZ0E"
+    }
+  ];
+}
+ }
     const icons = {notes:'📄',ppt:'📊','past-paper':'📋',textbook:'📖',video:'🎬',other:'📁'};
     const colors = {notes:'icon-note',ppt:'icon-ppt','past-paper':'icon-pdf',textbook:'icon-pdf',video:'icon-video',other:'icon-note'};
     list.innerHTML = data.resources.map(r => {
@@ -1474,6 +1473,100 @@ function filterByCategory(id, name) {
   fetch(`${API}/resources?limit=100&category=${id}`)
     .then(r => r.json())
     .then(data => {
+     if (!data.resources || data.resources.length === 0) {
+
+  data.resources = [
+
+    {
+      title: "Apna College DSA",
+      type: "video",
+      subject: "DSA",
+      courseCode: "YouTube",
+      uploadedBy: { name: "Apna College" },
+      views: 25000,
+      saves: 120,
+      fileUrl: "https://www.youtube.com/watch?v=WQoB2z67hvY"
+    },
+
+    {
+      title: "Gate Smashers DBMS",
+      type: "video",
+      subject: "DBMS",
+      courseCode: "YouTube",
+      uploadedBy: { name: "Gate Smashers" },
+      views: 22000,
+      saves: 110,
+      fileUrl: "https://www.youtube.com/watch?v=kBdlM6hNDAE"
+    },
+
+    {
+      title: "Operating Systems Full Course",
+      type: "video",
+      subject: "Operating Systems",
+      courseCode: "YouTube",
+      uploadedBy: { name: "Neso Academy" },
+      views: 18000,
+      saves: 90,
+      fileUrl: "https://www.youtube.com/watch?v=3obEP8eLsCw"
+    },
+
+    {
+      title: "Python for Data Science",
+      type: "video",
+      subject: "Data Science",
+      courseCode: "YouTube",
+      uploadedBy: { name: "freeCodeCamp" },
+      views: 30000,
+      saves: 200,
+      fileUrl: "https://www.youtube.com/watch?v=LHBE6Q9XlzI"
+    },
+
+    {
+      title: "Machine Learning Course",
+      type: "video",
+      subject: "Machine Learning",
+      courseCode: "YouTube",
+      uploadedBy: { name: "freeCodeCamp" },
+      views: 28000,
+      saves: 160,
+      fileUrl: "https://www.youtube.com/watch?v=GwIo3gDZCVQ"
+    },
+
+    {
+      title: "Java Full Course",
+      type: "video",
+      subject: "Java",
+      courseCode: "YouTube",
+      uploadedBy: { name: "Programming with Mosh" },
+      views: 35000,
+      saves: 220,
+      fileUrl: "https://www.youtube.com/watch?v=BGTx91t8q50"
+    },
+
+    {
+      title: "Web Development Bootcamp",
+      type: "video",
+      subject: "Web Development",
+      courseCode: "YouTube",
+      uploadedBy: { name: "SuperSimpleDev" },
+      views: 33000,
+      saves: 190,
+      fileUrl: "https://www.youtube.com/watch?v=zJSY8tbf_ys"
+    },
+
+    {
+      title: "C Programming Full Course",
+      type: "video",
+      subject: "Programming",
+      courseCode: "YouTube",
+      uploadedBy: { name: "freeCodeCamp" },
+      views: 27000,
+      saves: 150,
+      fileUrl: "https://www.youtube.com/watch?v=irqbmMNs2Bo"
+    }
+
+  ];
+}
       const icons = {notes:'📄',ppt:'📊','past-paper':'📋',textbook:'📖',video:'🎬',other:'📁'};
       if (!data.resources || data.resources.length === 0) {
   data.resources = [
