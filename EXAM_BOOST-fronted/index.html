@@ -1272,7 +1272,36 @@ async function loadCategories() {
   try {
     const res = await fetch(`${API}/categories`);
     const data = await res.json();
-    allCategories = data.categories || [];
+allCategories = data.categories || [];
+
+if (allCategories.length === 0) {
+  allCategories = [
+    {
+      _id: "1",
+      name: "DSA",
+      slug: "computer-science",
+      resourceCount: 12
+    },
+    {
+      _id: "2",
+      name: "DBMS",
+      slug: "computer-science",
+      resourceCount: 8
+    },
+    {
+      _id: "3",
+      name: "Operating Systems",
+      slug: "computer-science",
+      resourceCount: 10
+    },
+    {
+      _id: "4",
+      name: "Java",
+      slug: "computer-science",
+      resourceCount: 15
+    }
+  ];
+}
     const icons = {'computer-science':'💻','electronics':'⚡','sciences':'🔬','mathematics':'📐','mechanical':'⚙️','civil':'🏗️','life-sciences':'💊','management':'📊'};
     document.getElementById('categoriesGrid').innerHTML = allCategories.map(c => `
       <div class="category-cell" onclick="filterByCategory('${c._id}','${c.name}')">
