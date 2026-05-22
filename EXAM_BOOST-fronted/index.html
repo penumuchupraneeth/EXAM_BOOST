@@ -1206,20 +1206,6 @@ async function loadResources(search='', type='') {
         }
       ];
     }
-
-    else {
-
-      data.resources = [
-        {
-          title: "Operating Systems",
-          type: "video",
-          subject: "OS",
-          courseCode: "YouTube",
-          views: 7000,
-          fileUrl: "https://www.youtube.com/watch?v=3obEP8eLsCw"
-        }
-      ];
-    }
 else if (query.includes('civil')) {
 
   data.resources = [
@@ -1369,6 +1355,20 @@ else if (query.includes('python')) {
 
   ];
 }
+    else {
+
+      data.resources = [
+        {
+          title: "Operating Systems",
+          type: "video",
+          subject: "OS",
+          courseCode: "YouTube",
+          views: 7000,
+          fileUrl: "https://www.youtube.com/watch?v=3obEP8eLsCw"
+        }
+      ];
+    }
+
     const icons = {
       notes:'📄',
       ppt:'📊',
