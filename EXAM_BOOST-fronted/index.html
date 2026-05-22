@@ -1273,7 +1273,6 @@ async function loadCategories() {
     const res = await fetch(`${API}/categories`);
     const data = await res.json();
 allCategories = data.categories || [];
-
 if (allCategories.length === 0) {
   allCategories = [
     {
@@ -1299,6 +1298,66 @@ if (allCategories.length === 0) {
       name: "Java",
       slug: "computer-science",
       resourceCount: 15
+    },
+    {
+      _id: "5",
+      name: "Data Science",
+      slug: "computer-science",
+      resourceCount: 20
+    },
+    {
+      _id: "6",
+      name: "Machine Learning",
+      slug: "computer-science",
+      resourceCount: 14
+    },
+    {
+      _id: "7",
+      name: "Civil Engineering",
+      slug: "civil",
+      resourceCount: 11
+    },
+    {
+      _id: "8",
+      name: "Mechanical Engineering",
+      slug: "mechanical",
+      resourceCount: 13
+    },
+    {
+      _id: "9",
+      name: "Electronics",
+      slug: "electronics",
+      resourceCount: 9
+    },
+    {
+      _id: "10",
+      name: "Mathematics",
+      slug: "mathematics",
+      resourceCount: 18
+    },
+    {
+      _id: "11",
+      name: "Physics",
+      slug: "sciences",
+      resourceCount: 16
+    },
+    {
+      _id: "12",
+      name: "Chemistry",
+      slug: "sciences",
+      resourceCount: 12
+    },
+    {
+      _id: "13",
+      name: "School - Class 10",
+      slug: "sciences",
+      resourceCount: 22
+    },
+    {
+      _id: "14",
+      name: "School - Intermediate",
+      slug: "sciences",
+      resourceCount: 19
     }
   ];
 }
@@ -1332,29 +1391,69 @@ function filterByCategory(id, name) {
       if (!data.resources || data.resources.length === 0) {
   data.resources = [
     {
-      title: "Apna College DSA",
-      type: "video",
-      subject: "DSA",
-      courseCode: "YouTube",
-      views: 12000,
-      fileUrl: "https://www.youtube.com/results?search_query=apna+college+dsa"
-    },
-    {
-      title: "Gate Smashers DBMS",
-      type: "video",
-      subject: "DBMS",
-      courseCode: "YouTube",
-      views: 9800,
-      fileUrl: "https://www.youtube.com/results?search_query=gate+smashers+dbms"
-    },
-    {
-      title: "NPTEL Operating Systems",
-      type: "video",
-      subject: "Operating Systems",
-      courseCode: "NPTEL",
-      views: 7500,
-      fileUrl: "https://nptel.ac.in/courses"
-    }
+  title: "Python for Data Science",
+  type: "video",
+  subject: "Data Science",
+  courseCode: "YouTube",
+  views: 18000,
+  fileUrl: "https://www.youtube.com/results?search_query=python+for+data+science"
+},
+{
+  title: "Machine Learning Full Course",
+  type: "video",
+  subject: "Machine Learning",
+  courseCode: "YouTube",
+  views: 21000,
+  fileUrl: "https://www.youtube.com/results?search_query=machine+learning+full+course"
+},
+{
+  title: "NPTEL Civil Engineering",
+  type: "video",
+  subject: "Civil Engineering",
+  courseCode: "NPTEL",
+  views: 8700,
+  fileUrl: "https://nptel.ac.in/courses/civil-engineering"
+},
+{
+  title: "Strength of Materials",
+  type: "video",
+  subject: "Mechanical Engineering",
+  courseCode: "YouTube",
+  views: 7600,
+  fileUrl: "https://www.youtube.com/results?search_query=strength+of+materials"
+},
+{
+  title: "Digital Electronics",
+  type: "video",
+  subject: "Electronics",
+  courseCode: "YouTube",
+  views: 9800,
+  fileUrl: "https://www.youtube.com/results?search_query=digital+electronics"
+},
+{
+  title: "Class 10 Mathematics",
+  type: "video",
+  subject: "School",
+  courseCode: "YouTube",
+  views: 15000,
+  fileUrl: "https://www.youtube.com/results?search_query=class+10+maths"
+},
+{
+  title: "Intermediate Physics",
+  type: "video",
+  subject: "Intermediate",
+  courseCode: "YouTube",
+  views: 12000,
+  fileUrl: "https://www.youtube.com/results?search_query=intermediate+physics"
+},
+{
+  title: "Organic Chemistry",
+  type: "video",
+  subject: "Chemistry",
+  courseCode: "YouTube",
+  views: 11000,
+  fileUrl: "https://www.youtube.com/results?search_query=organic+chemistry"
+}
   ];
 }
       grid.innerHTML = data.resources.map(r => {
