@@ -1141,10 +1141,99 @@ async function loadResources(search='', type='') {
     if (type) url += `&type=${encodeURIComponent(type)}`;
     const res = await fetch(url);
     const data = await res.json();
-    if (!data.resources || data.resources.length === 0) {
-      list.innerHTML = '<div style="padding:20px;color:var(--muted);font-family:DM Mono,monospace;font-size:12px;">No resources found.</div>';
-      return;
-    }
+ if (!data.resources || data.resources.length === 0) {
+
+  if (name === 'DSA') {
+    data.resources = [
+      {
+        title: "Apna College DSA Playlist",
+        type: "video",
+        subject: "DSA",
+        courseCode: "YouTube",
+        views: 12000,
+        fileUrl: "https://www.youtube.com/playlist?list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"
+      }
+    ];
+  }
+
+  else if (name === 'DBMS') {
+    data.resources = [
+      {
+        title: "Gate Smashers DBMS",
+        type: "video",
+        subject: "DBMS",
+        courseCode: "YouTube",
+        views: 9800,
+        fileUrl: "https://www.youtube.com/playlist?list=PLxCzCOWd7aiGFBD2-2joCpWOLUrDLvVV_"
+      }
+    ];
+  }
+
+  else if (name === 'Operating Systems') {
+    data.resources = [
+      {
+        title: "NPTEL Operating Systems",
+        type: "video",
+        subject: "Operating Systems",
+        courseCode: "NPTEL",
+        views: 7500,
+        fileUrl: "https://archive.nptel.ac.in/courses/106/106/106106144/"
+      }
+    ];
+  }
+
+  else if (name === 'Data Science') {
+    data.resources = [
+      {
+        title: "Python for Data Science",
+        type: "video",
+        subject: "Data Science",
+        courseCode: "YouTube",
+        views: 18000,
+        fileUrl: "https://www.youtube.com/watch?v=LHBE6Q9XlzI"
+      }
+    ];
+  }
+
+  else if (name === 'Machine Learning') {
+    data.resources = [
+      {
+        title: "Machine Learning Full Course",
+        type: "video",
+        subject: "Machine Learning",
+        courseCode: "YouTube",
+        views: 21000,
+        fileUrl: "https://www.youtube.com/watch?v=GwIo3gDZCVQ"
+      }
+    ];
+  }
+
+  else if (name === 'Civil Engineering') {
+    data.resources = [
+      {
+        title: "Civil Engineering Basics",
+        type: "video",
+        subject: "Civil Engineering",
+        courseCode: "YouTube",
+        views: 8700,
+        fileUrl: "https://www.youtube.com/watch?v=0bHoB32fuj0"
+      }
+    ];
+  }
+
+  else {
+    data.resources = [
+      {
+        title: "General Engineering Resource",
+        type: "video",
+        subject: name,
+        courseCode: "YouTube",
+        views: 5000,
+        fileUrl: "https://www.youtube.com/"
+      }
+    ];
+  }
+}
     const icons = {notes:'📄',ppt:'📊','past-paper':'📋',textbook:'📖',video:'🎬',other:'📁'};
     const colors = {notes:'icon-note',ppt:'icon-ppt','past-paper':'icon-pdf',textbook:'icon-pdf',video:'icon-video',other:'icon-note'};
     list.innerHTML = data.resources.map(r => {
