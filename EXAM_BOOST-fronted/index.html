@@ -1026,7 +1026,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 48p
 
 
 <script>
-const API = 'http://localhost:5000/api';
+const API = 'https://exam-boost-9qc2.vercel.app/api';
 let token = localStorage.getItem('examboost_token') || null;
 let currentType = '';
 let allCategories = [];
@@ -1699,7 +1699,7 @@ async function sendMessage() {
   try {
 
     const response = await fetch(
-      "http://localhost:5000/api/ai",
+     "https://exam-boost-9qc2.vercel.app/api/ai",
       {
         method: "POST",
 
