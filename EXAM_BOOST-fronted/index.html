@@ -1168,32 +1168,105 @@ async function loadResources(search='', type='') {
 // ── Load ALL resources grid ────────────────────────────────────────────────
 async function loadAllResources() {
   const grid = document.getElementById('allResourcesGrid');
+
   try {
-    const res = await fetch(`${API}/resources?limit=100&sort=popular`);
-    const data = await res.json();
-    if (!data.resources || data.resources.length === 0) {
-      grid.innerHTML = '<div style="color:var(--muted);">No resources found.</div>';
-      return;
+    const data = {
+  resources: [
+    {
+      title: "Apna College DSA",
+      type: "video",
+      subject: "DSA",
+      courseCode: "YouTube",
+      views: 12000,
+      fileUrl: "https://www.youtube.com/results?search_query=apna+college+dsa"
+    },
+    {
+      title: "Gate Smashers DBMS",
+      type: "video",
+      subject: "DBMS",
+      courseCode: "YouTube",
+      views: 9800,
+      fileUrl: "https://www.youtube.com/results?search_query=gate+smashers+dbms"
+    },
+    {
+      title: "NPTEL Operating Systems",
+      type: "video",
+      subject: "Operating Systems",
+      courseCode: "NPTEL",
+      views: 7500,
+      fileUrl: "https://nptel.ac.in/courses"
     }
-    const icons = {notes:'📄',ppt:'📊','past-paper':'📋',textbook:'📖',video:'🎬',other:'📁'};
+  ]
+};
+
+    // Fallback resources if DB empty
+    if (!data.resources || data.resources.length === 0) {
+      data.resources = [
+        {
+          title: "Apna College DSA",
+          type: "video",
+          subject: "DSA",
+          courseCode: "YouTube",
+          views: 12000,
+          fileUrl: "https://www.youtube.com/results?search_query=apna+college+dsa"
+        },
+        {
+          title: "Gate Smashers DBMS",
+          type: "video",
+          subject: "DBMS",
+          courseCode: "YouTube",
+          views: 9800,
+          fileUrl: "https://www.youtube.com/results?search_query=gate+smashers+dbms"
+        },
+        {
+          title: "NPTEL Operating Systems",
+          type: "video",
+          subject: "Operating Systems",
+          courseCode: "NPTEL",
+          views: 7500,
+          fileUrl: "https://nptel.ac.in/courses"
+        }
+      ];
+    }
+
+    const icons = {
+      notes:'📄',
+      ppt:'📊',
+      'past-paper':'📋',
+      textbook:'📖',
+      video:'🎬',
+      other:'📁'
+    };
+
     grid.innerHTML = data.resources.map(r => {
       const safeUrl = (r.fileUrl||'').replace(/'/g,'');
       const safeTitle = (r.title||'').replace(/'/g,'').replace(/"/g,'');
-      return `<div class="res-grid-card" onclick="openResource('${safeUrl}','${safeTitle}')">
+
+      return `
+      <div class="res-grid-card" onclick="openResource('${safeUrl}','${safeTitle}')">
         <div class="rgc-icon">${icons[r.type]||'📁'}</div>
         <div class="rgc-title">${r.title}</div>
         <div class="rgc-meta">${r.courseCode||''} · ${r.subject}</div>
         <div class="rgc-footer">
           <span class="rgc-views">👁 ${r.views} views</span>
-          <span class="rgc-open">Open <span class="arrow-anim"><span class="arr">›</span><span class="arr">›</span></span></span>
+          <span class="rgc-open">
+            Open
+            <span class="arrow-anim">
+              <span class="arr">›</span>
+              <span class="arr">›</span>
+            </span>
+          </span>
         </div>
       </div>`;
     }).join('');
+
   } catch(err) {
-    grid.innerHTML = '<div style="color:var(--orange);font-family:DM Mono,monospace;font-size:12px;">⚠️ Backend offline.</div>';
+    grid.innerHTML = `
+      <div style="color:var(--orange);font-family:DM Mono,monospace;font-size:12px;">
+        ⚠️ Backend offline.
+      </div>`;
   }
 }
-
 // ── Load categories ────────────────────────────────────────────────────────
 async function loadCategories() {
   try {
