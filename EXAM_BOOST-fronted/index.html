@@ -1,0 +1,1743 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXAM BOOST — Academic Resource Discovery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0800;
+  --bg2: #1a1000;
+  --orange: #ff6b1a;
+  --orange2: #ff9a4d;
+  --orange3: #ffb347;
+  --amber: #ffb800;
+  --cream: #fff8f0;
+  --muted: #8a7060;
+  --border: #2a1f10;
+  --card: #180f04;
+  --card2: #1f1408;
+  --glow: rgba(255,107,26,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--orange);border-radius:3px;}
+
+body{
+  background:var(--bg);
+  color:var(--cream);
+  font-family:'Syne',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Animated bg orbs */
+.orb{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(80px);
+  pointer-events:none;
+  z-index:0;
+  animation:orbFloat 8s ease-in-out infinite;
+}
+.orb1{width:400px;height:400px;background:rgba(255,107,26,0.08);top:-100px;right:-100px;animation-delay:0s;}
+.orb2{width:300px;height:300px;background:rgba(255,184,0,0.06);bottom:20%;left:-80px;animation-delay:3s;}
+.orb3{width:200px;height:200px;background:rgba(255,107,26,0.05);top:50%;left:50%;animation-delay:5s;}
+@keyframes orbFloat{
+  0%,100%{transform:translate(0,0) scale(1);}
+  33%{transform:translate(30px,-30px) scale(1.05);}
+  66%{transform:translate(-20px,20px) scale(0.95);}
+}
+
+/* NAV */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 48px;
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;
+  background:rgba(14,8,0,0.92);
+  backdrop-filter:blur(20px);
+  z-index:200;
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:26px;font-weight:900;
+  background:linear-gradient(135deg,var(--orange),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  display:flex;align-items:center;gap:10px;
+}
+.logo-ring{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--orange);
+  box-shadow:0 0 12px var(--orange);
+  animation:ring 2s ease-in-out infinite;
+}
+@keyframes ring{
+  0%,100%{box-shadow:0 0 8px var(--orange);transform:scale(1);}
+  50%{box-shadow:0 0 20px var(--orange),0 0 40px rgba(255,107,26,0.3);transform:scale(1.3);}
+}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;
+  font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  transition:color 0.3s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;
+  height:1px;background:var(--orange);transform:scaleX(0);
+  transition:transform 0.3s;transform-origin:left;
+}
+.nav-links a:hover{color:var(--orange);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+  color:white!important;padding:9px 22px;border-radius:2px;
+  font-weight:700!important;letter-spacing:0.05em;
+  box-shadow:0 0 20px rgba(255,107,26,0.3);
+  transition:all 0.3s!important;
+}
+.nav-cta:hover{box-shadow:0 0 30px rgba(255,107,26,0.5)!important;transform:translateY(-1px);}
+.nav-cta::after{display:none!important;}
+
+/* HERO */
+.hero{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:calc(100vh - 61px);
+  position:relative;z-index:1;
+}
+.hero-left{
+  padding:80px 48px;
+  display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid var(--border);
+}
+.hero-tag{
+  font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--orange);border:1px solid var(--orange);
+  display:inline-flex;align-items:center;gap:8px;
+  padding:5px 12px;margin-bottom:32px;
+  animation:tagPulse 3s ease-in-out infinite;
+}
+@keyframes tagPulse{
+  0%,100%{border-color:var(--orange);color:var(--orange);}
+  50%{border-color:var(--amber);color:var(--amber);box-shadow:0 0 15px rgba(255,184,0,0.2);}
+}
+.tag-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:ring 1.5s ease-in-out infinite;}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(52px,6vw,84px);
+  font-weight:900;line-height:0.92;
+  letter-spacing:-2px;margin-bottom:28px;
+}
+.hero-title .line{
+  display:block;overflow:hidden;
+}
+.hero-title .line span{
+  display:block;
+  animation:slideUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
+}
+.hero-title .line:nth-child(1) span{animation-delay:0.1s;}
+.hero-title .line:nth-child(2) span{animation-delay:0.2s;}
+.hero-title .line:nth-child(3) span{animation-delay:0.3s;}
+@keyframes slideUp{
+  from{transform:translateY(100%);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+.hero-title em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--orange),var(--amber),var(--orange2));
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:gradShift 3s ease infinite;
+}
+@keyframes gradShift{
+  0%{background-position:0%;}
+  50%{background-position:100%;}
+  100%{background-position:0%;}
+}
+
+.hero-sub{
+  font-size:16px;line-height:1.75;color:var(--muted);
+  max-width:420px;margin-bottom:44px;
+  animation:fadeUp 0.8s 0.5s ease both;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.hero-actions{display:flex;gap:16px;animation:fadeUp 0.8s 0.6s ease both;opacity:0;}
+.btn-primary{
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+  color:white;padding:14px 32px;border:none;border-radius:2px;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:14px;
+  cursor:pointer;letter-spacing:0.05em;
+  box-shadow:0 0 30px rgba(255,107,26,0.4);
+  transition:all 0.3s;position:relative;overflow:hidden;
+}
+.btn-primary::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent,rgba(255,255,255,0.1),transparent);
+  transform:translateX(-100%);transition:transform 0.5s;
+}
+.btn-primary:hover::after{transform:translateX(100%);}
+.btn-primary:hover{box-shadow:0 0 50px rgba(255,107,26,0.6);transform:translateY(-2px);}
+.btn-ghost{
+  background:transparent;color:var(--cream);
+  padding:14px 32px;border:1px solid var(--border);
+  border-radius:2px;font-family:'Syne',sans-serif;
+  font-weight:600;font-size:14px;cursor:pointer;
+  transition:all 0.3s;display:flex;align-items:center;gap:8px;
+}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange);}
+
+/* Animated arrow */
+.arrow-anim{
+  display:inline-flex;align-items:center;gap:4px;
+}
+.arrow-anim .arr{
+  animation:arrBounce 1.2s ease-in-out infinite;
+}
+.arrow-anim .arr:nth-child(2){animation-delay:0.15s;}
+.arrow-anim .arr:nth-child(3){animation-delay:0.3s;}
+@keyframes arrBounce{
+  0%,100%{opacity:0.3;transform:translateX(0);}
+  50%{opacity:1;transform:translateX(4px);}
+}
+
+.hero-stats{
+  display:flex;gap:40px;margin-top:56px;padding-top:40px;
+  border-top:1px solid var(--border);
+  animation:fadeUp 0.8s 0.7s ease both;opacity:0;
+}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:38px;font-weight:900;line-height:1;
+  background:linear-gradient(135deg,var(--orange),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat-label{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--muted);margin-top:4px;letter-spacing:0.08em;
+}
+
+/* HERO RIGHT */
+.hero-right{
+  padding:60px 48px;display:flex;
+  flex-direction:column;justify-content:center;
+  animation:fadeUp 0.8s 0.3s ease both;opacity:0;
+}
+.search-card{
+  background:var(--card);
+  border:1px solid var(--border);border-radius:4px;
+  padding:32px;
+  box-shadow:0 0 60px rgba(255,107,26,0.05),inset 0 1px 0 rgba(255,107,26,0.1);
+}
+.search-card-label{
+  font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:18px;
+}
+.search-bar{display:flex;margin-bottom:18px;}
+.search-input{
+  flex:1;padding:13px 16px;
+  background:var(--bg2);color:var(--cream);
+  border:1px solid var(--border);border-right:none;
+  border-radius:2px 0 0 2px;
+  font-family:'Syne',sans-serif;font-size:14px;
+  outline:none;transition:border-color 0.3s;
+}
+.search-input:focus{border-color:var(--orange);}
+.search-input::placeholder{color:var(--muted);}
+.search-btn{
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+  border:none;padding:13px 20px;border-radius:0 2px 2px 0;
+  cursor:pointer;font-size:16px;
+  transition:all 0.3s;
+}
+.search-btn:hover{box-shadow:0 0 20px rgba(255,107,26,0.5);}
+
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.filter-chip{
+  padding:6px 14px;border:1px solid var(--border);
+  border-radius:100px;font-size:11px;cursor:pointer;
+  transition:all 0.25s;
+  background:transparent;color:var(--muted);
+  font-family:'DM Mono',monospace;letter-spacing:0.03em;
+}
+.filter-chip:hover{border-color:var(--orange);color:var(--orange);}
+.filter-chip.active-orange{
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+  color:white;border-color:transparent;
+  box-shadow:0 0 15px rgba(255,107,26,0.3);
+}
+
+/* RESOURCE LIST */
+.resource-list{display:flex;flex-direction:column;gap:10px;}
+.resource-card{
+  background:var(--card2);
+  border:1px solid var(--border);border-radius:3px;
+  padding:14px 16px;display:flex;align-items:center;gap:14px;
+  cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;
+}
+.resource-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--orange),var(--amber));
+  transform:scaleY(0);transition:transform 0.3s;transform-origin:bottom;
+}
+.resource-card:hover{
+  border-color:rgba(255,107,26,0.3);
+  box-shadow:0 0 20px rgba(255,107,26,0.08);
+  transform:translateX(6px);
+}
+.resource-card:hover::before{transform:scaleY(1);}
+.resource-icon{
+  width:36px;height:36px;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.icon-pdf{background:rgba(255,107,26,0.15);}
+.icon-ppt{background:rgba(255,184,0,0.15);}
+.icon-video{background:rgba(255,107,26,0.1);}
+.icon-note{background:rgba(255,154,77,0.15);}
+.resource-info{flex:1;min-width:0;}
+.resource-title{
+  font-size:13px;font-weight:700;color:var(--cream);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.resource-meta{
+  font-size:11px;color:var(--muted);margin-top:2px;
+  font-family:'DM Mono',monospace;
+}
+.resource-badge{
+  font-size:10px;font-family:'DM Mono',monospace;
+  padding:3px 8px;border-radius:2px;flex-shrink:0;letter-spacing:0.05em;
+}
+.badge-hot{background:rgba(255,107,26,0.2);color:var(--orange);}
+.badge-new{background:rgba(255,184,0,0.15);color:var(--amber);}
+.badge-saved{background:rgba(255,154,77,0.15);color:var(--orange2);}
+
+/* SECTION */
+.section{padding:100px 48px;position:relative;z-index:1;}
+.section-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:56px;
+}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:52px;font-weight:900;letter-spacing:-1.5px;line-height:1;
+}
+.section-title span{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--orange),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.section-sub{color:var(--muted);font-size:14px;max-width:260px;line-height:1.7;text-align:right;}
+
+/* ALL RESOURCES GRID */
+.resources-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+}
+.res-grid-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:4px;padding:20px;cursor:pointer;
+  transition:all 0.3s;position:relative;overflow:hidden;
+}
+.res-grid-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,107,26,0.05),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.res-grid-card:hover{
+  border-color:rgba(255,107,26,0.3);
+  transform:translateY(-4px);
+  box-shadow:0 12px 40px rgba(255,107,26,0.1);
+}
+.res-grid-card:hover::after{opacity:1;}
+.rgc-icon{font-size:24px;margin-bottom:12px;}
+.rgc-title{
+  font-size:13px;font-weight:700;color:var(--cream);
+  margin-bottom:6px;line-height:1.4;
+}
+.rgc-meta{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;}
+.rgc-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--border);
+}
+.rgc-views{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;}
+.rgc-open{
+  font-size:11px;color:var(--orange);font-weight:700;
+  display:flex;align-items:center;gap:4px;
+  transition:gap 0.2s;
+}
+.res-grid-card:hover .rgc-open{gap:8px;}
+
+/* CATEGORIES */
+.categories{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+}
+.category-cell{
+  background:var(--card);padding:32px 28px;
+  cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;
+}
+.category-cell::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+  transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);z-index:0;
+}
+.category-cell:hover::after{transform:translateY(0);}
+.category-cell>*{position:relative;z-index:1;transition:color 0.3s;}
+.category-cell:hover .cat-name,.category-cell:hover .cat-count{color:white;}
+.cat-icon{font-size:32px;margin-bottom:16px;display:block;}
+.cat-name{
+  font-family:'Playfair Display',serif;font-size:18px;
+  font-weight:700;color:var(--cream);margin-bottom:6px;
+}
+.cat-count{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);}
+.step{padding:48px 40px;border-right:1px solid var(--border);position:relative;overflow:hidden;}
+.step:last-child{border-right:none;}
+.step::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--orange),var(--amber));
+  transform:scaleX(0);transition:transform 0.5s;transform-origin:left;
+}
+.step:hover::before{transform:scaleX(1);}
+.step-num{
+  font-family:'Playfair Display',serif;font-size:80px;font-weight:900;
+  line-height:1;margin-bottom:20px;
+  background:linear-gradient(135deg,rgba(255,107,26,0.15),rgba(255,184,0,0.08));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  -webkit-text-stroke:1px rgba(255,107,26,0.2);
+}
+.step-title{
+  font-family:'Playfair Display',serif;font-size:20px;
+  font-weight:700;margin-bottom:12px;color:var(--cream);
+}
+.step-desc{color:var(--muted);font-size:14px;line-height:1.7;}
+
+/* UPLOAD */
+.upload-section{
+  background:var(--card);border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:80px 48px;text-align:center;position:relative;z-index:1;
+}
+.upload-area{
+  border:2px dashed rgba(255,107,26,0.3);border-radius:4px;
+  padding:60px;max-width:600px;margin:40px auto 0;
+  cursor:pointer;transition:all 0.3s;background:var(--bg2);
+}
+.upload-area:hover{
+  border-color:var(--orange);
+  box-shadow:0 0 40px rgba(255,107,26,0.1);
+}
+.upload-icon{font-size:48px;margin-bottom:16px;}
+.upload-title{
+  font-family:'Playfair Display',serif;font-size:22px;
+  font-weight:700;margin-bottom:8px;color:var(--cream);
+}
+.upload-desc{color:var(--muted);font-size:14px;}
+.upload-form{display:none;margin-top:24px;}
+.upload-form.show{display:block;}
+.upload-input{
+  width:100%;padding:12px 16px;background:var(--bg);
+  border:1px solid var(--border);border-radius:2px;
+  color:var(--cream);font-family:'Syne',sans-serif;font-size:14px;
+  margin-bottom:10px;outline:none;transition:border-color 0.3s;
+}
+.upload-input:focus{border-color:var(--orange);}
+.upload-select{
+  width:100%;padding:12px 16px;background:var(--bg);
+  border:1px solid var(--border);border-radius:2px;
+  color:var(--cream);font-family:'Syne',sans-serif;font-size:14px;
+  margin-bottom:10px;outline:none;cursor:pointer;
+}
+.upload-select option{background:var(--bg);}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 48px 40px;}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:48px;padding-bottom:48px;
+  border-bottom:1px solid var(--border);margin-bottom:32px;
+}
+.footer-brand{
+  font-family:'Playfair Display',serif;font-size:28px;font-weight:900;
+  background:linear-gradient(135deg,var(--orange),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:12px;
+}
+.footer-tagline{color:var(--muted);font-size:14px;line-height:1.6;max-width:260px;}
+.footer-col-title{
+  font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,107,26,0.6);margin-bottom:16px;
+}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:14px;transition:color 0.2s;}
+.footer-links a:hover{color:var(--orange);}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;
+}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.85);
+  z-index:1000;display:none;align-items:center;
+  justify-content:center;backdrop-filter:blur(8px);
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:4px;padding:40px;width:480px;max-width:90vw;
+  animation:modalIn 0.3s cubic-bezier(0.4,0,0.2,1);
+  box-shadow:0 0 60px rgba(255,107,26,0.1);
+  position:relative;
+}
+@keyframes modalIn{
+  from{opacity:0;transform:scale(0.9) translateY(20px);}
+  to{opacity:1;transform:scale(1) translateY(0);}
+}
+.modal-title{
+  font-family:'Playfair Display',serif;font-size:28px;
+  font-weight:900;margin-bottom:8px;
+  background:linear-gradient(135deg,var(--orange),var(--amber));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.modal-sub{color:var(--muted);font-size:14px;margin-bottom:28px;}
+.form-group{margin-bottom:16px;}
+.form-label{
+  display:block;font-size:11px;font-family:'DM Mono',monospace;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:6px;
+}
+.form-input{
+  width:100%;padding:11px 14px;background:var(--bg);
+  border:1px solid var(--border);border-radius:2px;
+  font-family:'Syne',sans-serif;font-size:14px;
+  color:var(--cream);outline:none;transition:border-color 0.3s;
+}
+.form-input:focus{border-color:var(--orange);}
+.modal-actions{display:flex;gap:12px;margin-top:24px;}
+.modal-close{
+  position:absolute;top:16px;right:20px;
+  background:none;border:none;font-size:20px;
+  cursor:pointer;color:var(--muted);transition:color 0.2s;
+}
+.modal-close:hover{color:var(--orange);}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:100px;right:32px;
+  background:var(--card);color:var(--cream);
+  padding:14px 20px;border-radius:3px;font-size:13px;
+  font-family:'DM Mono',monospace;
+  transform:translateY(80px);opacity:0;
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  z-index:9998;border-left:3px solid var(--orange);
+  max-width:300px;box-shadow:0 8px 30px rgba(0,0,0,0.4);
+}
+.toast.show{transform:translateY(0);opacity:1;}
+
+
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.4,0,0.2,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* Animated underline on section titles */
+.underline-anim{
+  position:relative;display:inline-block;
+}
+.underline-anim::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;
+  height:2px;background:linear-gradient(90deg,var(--orange),var(--amber));
+  transform:scaleX(0);transition:transform 0.6s ease;transform-origin:left;
+}
+.underline-anim.visible::after{transform:scaleX(1);}
+
+@media(max-width:900px){
+  nav{padding:16px 24px;}
+  .hero{grid-template-columns:1fr;}
+  .hero-right{border-top:1px solid var(--border);}
+  .categories{grid-template-columns:repeat(2,1fr);}
+  .steps{grid-template-columns:1fr;}
+  .step{border-right:none;border-bottom:1px solid var(--border);}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .section{padding:60px 24px;}
+  .resources-grid{grid-template-columns:1fr;}
+}
+.quiz-box {
+  padding: 20px;
+}
+
+.quiz-progress {
+  font-size: 12px;
+  color: var(--orange);
+  margin-bottom: 10px;
+}
+
+.quiz-question-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quiz-option {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.quiz-option:hover {
+  background: rgba(255,107,26,0.1);
+  border-color: var(--orange);
+}
+
+.quiz-result {
+  text-align: center;
+}
+
+.quiz-score {
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--orange);
+}
+
+.quiz-percent {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.quiz-status {
+  margin-top: 10px;
+  font-size: 18px;
+}
+.quiz-percent {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.quiz-status {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* QUIZ UI */
+.quiz-question {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.quiz-option{
+  background:#1f1408;
+  border:2px solid #2a1f10;
+  padding:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  border-radius:8px;
+  transition:0.3s;
+  user-select:none;
+  pointer-events:auto;
+  position:relative;
+  z-index:9999;
+}
+
+.quiz-option:hover{
+  border-color:#ff6b1a;
+  background:rgba(255,107,26,0.1);
+}
+
+.quiz-option.selected{
+  background:#ff6b1a;
+  color:white;
+  border-color:#ff6b1a;
+}
+.quiz-options{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.quiz-box{
+  position:relative;
+  z-index:9999;
+}
+
+.quiz-progress {
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.quiz-percent {
+  font-size: 24px;
+}
+
+.quiz-status {
+  margin-top: 10px;
+}
+
+/* ADD HERE */
+.quiz-subjects{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+.previous-paper-box{
+  margin-top:20px;
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--card2);
+}
+
+.paper-question{
+  margin-top:12px;
+  padding:12px;
+  background:rgba(255,255,255,0.03);
+  border-left:4px solid orange;
+  border-radius:6px;
+  font-size:15px;
+}
+/* ===== AI CHATBOT ===== */
+
+.ai-chat{
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+
+  width: 360px;
+  height: 500px;
+
+  background: #111;
+  border: 2px solid orange;
+  border-radius: 20px;
+
+  display: none;
+  flex-direction: column;
+
+  overflow: hidden;
+  z-index: 9999;
+
+  box-shadow: 0 0 25px rgba(255,165,0,0.3);
+}
+</style>
+</head>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-ring"></div>
+    EXAM BOOST
+  </div>
+  <ul class="nav-links">
+    <ul class="nav-links"></ul>
+    <li><a href="#discover">Discover</a></li>
+    <li><a href="#all-resources">Resources</a></li>
+    <li><a href="#" onclick="openQuiz('dsa')">Quiz</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#" class="nav-cta" id="navCta" onclick="openModal('register')">Sign Up Free</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag"><div class="tag-dot"></div>⚡ Exam Week Ready</div>
+    <h1 class="hero-title">
+      <span class="line"><span>Find what</span></span>
+      <span class="line"><span>you need,</span></span>
+      <span class="line"><span><em>instantly.</em></span></span>
+    </h1>
+    <p class="hero-sub">Notes, PPTs, past papers, textbooks — all your academic resources in one place. Powered by IIT, MIT & Stanford content.</p>
+    <div class="hero-actions">
+
+  <button class="btn-primary"
+    onclick="openModal('register')">
+
+    Start Discovering
+
+  </button>
+
+  <button class="btn-ghost"
+    onclick="document.getElementById('all-resources').scrollIntoView({behavior:'smooth'})">
+
+    Browse All
+
+    <span class="arrow-anim">
+      <span class="arr">›</span>
+      <span class="arr">›</span>
+      <span class="arr">›</span>
+    </span>
+
+  </button>
+
+</div>
+
+<div class="quiz-subjects">
+
+  <button class="btn-primary"
+    onclick="openQuiz('dsa')">
+
+    DSA Quiz
+
+  </button>
+
+  <button class="btn-primary"
+    onclick="openQuiz('dbms')">
+
+    DBMS Quiz
+
+  </button>
+
+  <button class="btn-primary"
+    onclick="openQuiz('os')">
+
+    OS Quiz
+
+  </button>
+
+  <button class="btn-primary"
+    onclick="openQuiz('cn')">
+
+    CN Quiz
+
+  </button>
+
+</div>
+    <div class="hero-stats">
+      <div><div class="stat-num" id="cntRes">22+</div><div class="stat-label">Resources</div></div>
+      <div><div class="stat-num">8</div><div class="stat-label">Subjects</div></div>
+      <div><div class="stat-num">IIT</div><div class="stat-label">Quality</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right" id="discover">
+    <div class="search-card">
+      <div class="search-card-label">// Search Resources</div>
+      <div class="search-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="e.g. 'Data Structures', 'ML Stanford'...">
+        <button class="search-btn" onclick="doSearch()">🔍</button>
+      </div>
+      <div class="filter-row">
+        <div class="filter-chip active-orange" onclick="toggleChip(this,'')">All</div>
+        <div class="filter-chip" onclick="toggleChip(this,'notes')">📄 Notes</div>
+        <div class="filter-chip" onclick="toggleChip(this,'ppt')">📊 PPT</div>
+        <div class="filter-chip" onclick="toggleChip(this,'past-paper')">📋 Past Papers</div>
+        <div class="filter-chip" onclick="toggleChip(this,'textbook')">📖 Textbooks</div>
+        <div class="filter-chip" onclick="toggleChip(this,'video')">🎬 Video</div>
+      </div>
+      <div class="resource-list" id="resourceList">
+        <div style="padding:20px;color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;">Loading resources...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALL RESOURCES -->
+<section class="section reveal" id="all-resources">
+  <div class="section-header">
+    <h2 class="section-title">All <span>Resources</span></h2>
+    <p class="section-sub">Click any card to open the full course or material directly.</p>
+  </div>
+  <div class="resources-grid" id="allResourcesGrid">
+    <div style="color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;padding:20px;">Loading all resources...</div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section reveal" id="categories" style="padding-top:0;">
+  <div class="section-header">
+    <h2 class="section-title">Browse by <span>Subject</span></h2>
+    <p class="section-sub">Click a subject to filter resources by department.</p>
+  </div>
+  <div class="categories" id="categoriesGrid">
+    <div class="category-cell"><span class="cat-icon">💻</span><div class="cat-name">Computer Science</div><div class="cat-count">Loading...</div></div>
+    <div class="category-cell"><span class="cat-icon">⚡</span><div class="cat-name">Electronics</div><div class="cat-count">Loading...</div></div>
+    <div class="category-cell"><span class="cat-icon">🔬</span><div class="cat-name">Sciences</div><div class="cat-count">Loading...</div></div>
+    <div class="category-cell"><span class="cat-icon">📐</span><div class="cat-name">Mathematics</div><div class="cat-count">Loading...</div></div>
+    <div class="category-cell"><span class="cat-icon">⚙️</span><div class="cat-name">Mechanical</div><div class="cat-count">Loading...</div></div>
+    <div class="category-cell"><span class="cat-icon">🏗️</span><div class="cat-name">Civil</div><div class="cat-count">Loading...</div></div>
+    <div class="category-cell"><span class="cat-icon">💊</span><div class="cat-name">Life Sciences</div><div class="cat-count">Loading...</div></div>
+    <div class="category-cell"><span class="cat-icon">📊</span><div class="cat-name">Management</div><div class="cat-count">Loading...</div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section reveal" id="how" style="background:var(--bg2);">
+  <div class="section-header">
+    <h2 class="section-title">How <span>EXAM BOOST</span> works</h2>
+    <p class="section-sub">Three steps from panic to prepared.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Search your course</div>
+      <p class="step-desc">Type your subject, course code, or topic. Our smart search finds resources from IIT, MIT and Stanford instantly.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Filter & discover</div>
+      <p class="step-desc">Narrow by resource type — notes, videos, past papers or textbooks. Find exactly what aligns with your syllabus.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Open & learn</div>
+      <p class="step-desc">One click opens the real resource. Ask our AI assistant if you have doubts about any topic.</p>
+    </div>
+  </div>
+</section>
+
+<!-- UPLOAD -->
+<div class="upload-section reveal">
+  <h2 class="section-title" style="margin-bottom:12px;">Have resources? <span>Share them.</span></h2>
+  <p style="color:var(--muted);font-size:15px;">Help your fellow students. Upload notes and get recognized as a top contributor.</p>
+  <div class="upload-area" onclick="toggleUploadForm()">
+    <div class="upload-icon">📁</div>
+    <div class="upload-title">Upload a Resource</div>
+    <p class="upload-desc">Click to add your notes, PPTs, or share a link</p>
+  </div>
+  <div class="upload-form" id="uploadForm" style="max-width:600px;margin:24px auto 0;">
+    <input type="text" class="upload-input" id="upTitle" placeholder="Resource Title *">
+    <input type="text" class="upload-input" id="upSubject" placeholder="Subject *">
+    <input type="text" class="upload-input" id="upCourseCode" placeholder="Course Code (e.g. CSE301)">
+    <input type="text" class="upload-input" id="upProfessor" placeholder="Professor Name">
+    <input type="text" class="upload-input" id="upUrl" placeholder="Resource URL (Google Drive / YouTube / NPTEL link) *">
+    <select class="upload-select" id="upType">
+      <option value="">Select Type *</option>
+      <option value="notes">📄 Notes</option>
+      <option value="ppt">📊 PPT / Slides</option>
+      <option value="past-paper">📋 Past Paper</option>
+      <option value="textbook">📖 Textbook</option>
+      <option value="video">🎬 Video</option>
+      <option value="other">📁 Other</option>
+    </select>
+    <select class="upload-select" id="upCategory">
+      <option value="">Select Subject Category *</option>
+    </select>
+    <input type="text" class="upload-input" id="upTags" placeholder="Tags (comma separated: sql, database, nptel)">
+    <button class="btn-primary" style="width:100%;margin-top:8px;" onclick="submitUpload()">
+      Upload Resource <span class="arrow-anim"><span class="arr">›</span><span class="arr">›</span></span>
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">EXAM BOOST</div>
+      <p class="footer-tagline">Academic resources, discovered fast. IIT · MIT · Stanford content for every student.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Discover</div>
+      <ul class="footer-links">
+        <li><a href="#all-resources">All Resources</a></li>
+        <li><a href="#categories">By Subject</a></li>
+        <li><a href="#discover">Search</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Platform</div>
+      <ul class="footer-links">
+        <li><a href="#" onclick="toggleUploadForm()">Upload Resource</a></li>
+        <li><a href="#" onclick="openModal()">Sign Up</a></li>
+        <li><a href="#how">How it Works</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">About</div>
+      <ul class="footer-links">
+        <li><a href="#">HackerRank CodeSprint</a></li>
+        <li><a href="#">Project EXAM BOOST</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 EXAM BOOST. All rights reserved.</span>
+    <span>Built for HackerRank CodeSprint MVGR</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div style="display:flex;margin-bottom:24px;border:1px solid var(--border);border-radius:3px;overflow:hidden;">
+      <button id="tabRegister" onclick="switchTab('register')" style="flex:1;padding:10px;background:linear-gradient(135deg,#ff6b1a,#ff9a4d);color:white;border:none;font-family:Syne,sans-serif;font-weight:700;font-size:13px;cursor:pointer;">Register</button>
+      <button id="tabLogin" onclick="switchTab('login')" style="flex:1;padding:10px;background:#1a1000;color:#8a7060;border:none;font-family:Syne,sans-serif;font-weight:700;font-size:13px;cursor:pointer;">Login</button>
+    </div>
+    <div id="formRegister">
+      <div class="modal-title">Join EXAM BOOST</div>
+      <p class="modal-sub">Access 22+ real resources from IIT, MIT & Stanford.</p>
+      <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="regName" class="form-input" placeholder="Your name"></div>
+      <div class="form-group"><label class="form-label">College Email</label><input type="email" id="regEmail" class="form-input" placeholder="you@college.edu"></div>
+      <div class="form-group"><label class="form-label">Password</label><input type="password" id="regPassword" class="form-input" placeholder="Min 6 characters"></div>
+      <div class="form-group"><label class="form-label">Course / Branch</label><input type="text" id="regCourse" class="form-input" placeholder="e.g. B.Tech CSE 3rd Year"></div>
+      <div class="modal-actions">
+        <button class="btn-primary" style="flex:1" onclick="submitForm()">Create Account</button>
+        <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+    <div id="formLogin" style="display:none;">
+      <div class="modal-title">Welcome Back</div>
+      <p class="modal-sub">Login to upload resources and save favourites.</p>
+      <div class="form-group"><label class="form-label">Email</label><input type="email" id="loginEmail" class="form-input" placeholder="you@college.edu"></div>
+      <div class="form-group"><label class="form-label">Password</label><input type="password" id="loginPassword" class="form-input" placeholder="Your password"></div>
+      <div class="modal-actions">
+        <button class="btn-primary" style="flex:1" onclick="submitLogin()">Login</button>
+        <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
+
+ 
+
+
+<script>
+const API = 'http://localhost:5000/api';
+let token = localStorage.getItem('examboost_token') || null;
+let currentType = '';
+let allCategories = [];
+
+// ── Toast ──────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── Open Resource ──────────────────────────────────────────────────────────
+function openResource(url, title) {
+  if (!url || url === '' || url.includes('example.com')) {
+    showToast('No file attached to this resource.');
+    return;
+  }
+  showToast('Opening: ' + title.substring(0, 40) + '...');
+  setTimeout(() => window.open(url, '_blank'), 300);
+}
+
+// ── Modal ──────────────────────────────────────────────────────────────────
+function openModal(tab) {
+  document.getElementById('modal').classList.add('open');
+  if (tab === 'login') switchTab('login');
+  else switchTab('register');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function closeModalOutside(e) { if(e.target===document.getElementById('modal')) closeModal(); }
+
+function switchTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('formRegister').style.display = isLogin ? 'none' : 'block';
+  document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('tabRegister').style.background = isLogin ? '#1a1000' : 'linear-gradient(135deg,#ff6b1a,#ff9a4d)';
+  document.getElementById('tabRegister').style.color = isLogin ? '#8a7060' : 'white';
+  document.getElementById('tabLogin').style.background = isLogin ? 'linear-gradient(135deg,#ff6b1a,#ff9a4d)' : '#1a1000';
+  document.getElementById('tabLogin').style.color = isLogin ? 'white' : '#8a7060';
+}
+
+function setLoggedIn(name) {
+  const cta = document.getElementById('navCta');
+  cta.textContent = '👋 ' + name;
+  cta.onclick = function(e) {
+    e.preventDefault();
+    if(confirm('Logout?')) {
+      localStorage.removeItem('examboost_token');
+      token = null;
+      cta.textContent = 'Sign Up Free';
+      cta.onclick = function() { openModal(); };
+      showToast('Logged out successfully.');
+    }
+  };
+}
+
+async function submitLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+  if (!email || !password) { showToast('Please fill all fields!'); return; }
+  try {
+    const res = await fetch(`${API}/auth/login`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email, password}),
+    });
+    const data = await res.json();
+    if (!res.ok) { showToast(data.error || 'Login failed. Check email/password.'); return; }
+    token = data.token;
+    localStorage.setItem('examboost_token', token);
+    closeModal();
+    showToast('🎉 Welcome back, ' + data.user.name + '!');
+    setLoggedIn(data.user.name);
+  } catch(err) { showToast('⚠️ Backend offline. Run: npm run dev'); }
+}
+
+async function submitForm() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPassword').value.trim();
+  const course = document.getElementById('regCourse').value.trim();
+  if (!name || !email || !password) { showToast('Please fill all fields!'); return; }
+  try {
+    const res = await fetch(`${API}/auth/register`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name,email,password,course}),
+    });
+    const data = await res.json();
+    if (!res.ok) { showToast(data.error || 'Registration failed.'); return; }
+    token = data.token;
+    localStorage.setItem('examboost_token', token);
+    closeModal();
+    showToast('🎉 Welcome, ' + data.user.name + '!');
+    setLoggedIn(data.user.name);
+  } catch(err) { showToast('⚠️ Backend offline. Run: npm run dev'); }
+}
+
+// ── Filter chips ───────────────────────────────────────────────────────────
+function toggleChip(el, type) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active-orange'));
+  el.classList.add('active-orange');
+  currentType = type;
+  loadResources('', type);
+}
+
+// ── Load hero resources ────────────────────────────────────────────────────
+async function loadResources(search='', type='') {
+  const list = document.getElementById('resourceList');
+  list.innerHTML = '<div style="padding:20px;color:var(--muted);font-family:DM Mono,monospace;font-size:12px;">Loading...</div>';
+  try {
+    let url = `${API}/resources?limit=4&sort=popular`;
+    if (search) url += `&search=${encodeURIComponent(search)}`;
+    if (type) url += `&type=${encodeURIComponent(type)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (!data.resources || data.resources.length === 0) {
+      list.innerHTML = '<div style="padding:20px;color:var(--muted);font-family:DM Mono,monospace;font-size:12px;">No resources found.</div>';
+      return;
+    }
+    const icons = {notes:'📄',ppt:'📊','past-paper':'📋',textbook:'📖',video:'🎬',other:'📁'};
+    const colors = {notes:'icon-note',ppt:'icon-ppt','past-paper':'icon-pdf',textbook:'icon-pdf',video:'icon-video',other:'icon-note'};
+    list.innerHTML = data.resources.map(r => {
+      const badge = r.views>1000 ? '<div class="resource-badge badge-hot">🔥 Hot</div>'
+        : r.saves>50 ? '<div class="resource-badge badge-saved">⭐ Saved</div>'
+        : '<div class="resource-badge badge-new">✨ New</div>';
+      const safeUrl = (r.fileUrl||'').replace(/'/g,'');
+      const safeTitle = (r.title||'').replace(/'/g,'').replace(/"/g,'');
+      return `<div class="resource-card" onclick="openResource('${safeUrl}','${safeTitle}')">
+        <div class="resource-icon ${colors[r.type]||'icon-note'}">${icons[r.type]||'📁'}</div>
+        <div class="resource-info">
+          <div class="resource-title">${r.title}</div>
+          <div class="resource-meta">${r.courseCode||r.subject} · ${r.uploadedBy?.name||'Unknown'} · ${r.type.toUpperCase()}</div>
+        </div>${badge}</div>`;
+    }).join('');
+  } catch(err) {
+    list.innerHTML = '<div style="padding:20px;color:var(--orange);font-size:12px;font-family:DM Mono,monospace;">⚠️ Backend offline. Run: npm run dev</div>';
+  }
+}
+
+// ── Load ALL resources grid ────────────────────────────────────────────────
+async function loadAllResources() {
+  const grid = document.getElementById('allResourcesGrid');
+  try {
+    const res = await fetch(`${API}/resources?limit=100&sort=popular`);
+    const data = await res.json();
+    if (!data.resources || data.resources.length === 0) {
+      grid.innerHTML = '<div style="color:var(--muted);">No resources found.</div>';
+      return;
+    }
+    const icons = {notes:'📄',ppt:'📊','past-paper':'📋',textbook:'📖',video:'🎬',other:'📁'};
+    grid.innerHTML = data.resources.map(r => {
+      const safeUrl = (r.fileUrl||'').replace(/'/g,'');
+      const safeTitle = (r.title||'').replace(/'/g,'').replace(/"/g,'');
+      return `<div class="res-grid-card" onclick="openResource('${safeUrl}','${safeTitle}')">
+        <div class="rgc-icon">${icons[r.type]||'📁'}</div>
+        <div class="rgc-title">${r.title}</div>
+        <div class="rgc-meta">${r.courseCode||''} · ${r.subject}</div>
+        <div class="rgc-footer">
+          <span class="rgc-views">👁 ${r.views} views</span>
+          <span class="rgc-open">Open <span class="arrow-anim"><span class="arr">›</span><span class="arr">›</span></span></span>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(err) {
+    grid.innerHTML = '<div style="color:var(--orange);font-family:DM Mono,monospace;font-size:12px;">⚠️ Backend offline.</div>';
+  }
+}
+
+// ── Load categories ────────────────────────────────────────────────────────
+async function loadCategories() {
+  try {
+    const res = await fetch(`${API}/categories`);
+    const data = await res.json();
+    allCategories = data.categories || [];
+    const icons = {'computer-science':'💻','electronics':'⚡','sciences':'🔬','mathematics':'📐','mechanical':'⚙️','civil':'🏗️','life-sciences':'💊','management':'📊'};
+    document.getElementById('categoriesGrid').innerHTML = allCategories.map(c => `
+      <div class="category-cell" onclick="filterByCategory('${c._id}','${c.name}')">
+        <span class="cat-icon">${icons[c.slug]||'📁'}</span>
+        <div class="cat-name">${c.name}</div>
+        <div class="cat-count">${c.resourceCount} resources</div>
+      </div>`).join('');
+
+    // Populate upload category dropdown
+    const sel = document.getElementById('upCategory');
+    allCategories.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c._id; opt.textContent = c.name;
+      sel.appendChild(opt);
+    });
+  } catch(err) { console.error('Categories error:', err); }
+}
+
+function filterByCategory(id, name) {
+  showToast('Filtering: ' + name);
+  document.getElementById('all-resources').scrollIntoView({behavior:'smooth'});
+  const grid = document.getElementById('allResourcesGrid');
+  grid.innerHTML = '<div style="color:var(--muted);font-family:DM Mono,monospace;font-size:12px;padding:20px;">Loading...</div>';
+  fetch(`${API}/resources?limit=100&category=${id}`)
+    .then(r => r.json())
+    .then(data => {
+      const icons = {notes:'📄',ppt:'📊','past-paper':'📋',textbook:'📖',video:'🎬',other:'📁'};
+      if (!data.resources || data.resources.length === 0) {
+        grid.innerHTML = '<div style="color:var(--muted);">No resources in this category yet.</div>'; return;
+      }
+      grid.innerHTML = data.resources.map(r => {
+        const safeUrl = (r.fileUrl||'').replace(/'/g,'');
+        const safeTitle = (r.title||'').replace(/'/g,'').replace(/"/g,'');
+        return `<div class="res-grid-card" onclick="openResource('${safeUrl}','${safeTitle}')">
+          <div class="rgc-icon">${icons[r.type]||'📁'}</div>
+          <div class="rgc-title">${r.title}</div>
+          <div class="rgc-meta">${r.courseCode||''} · ${r.subject}</div>
+          <div class="rgc-footer">
+            <span class="rgc-views">👁 ${r.views} views</span>
+            <span class="rgc-open">Open <span class="arrow-anim"><span class="arr">›</span><span class="arr">›</span></span></span>
+          </div>
+        </div>`;
+      }).join('');
+    });
+}
+
+// ── Search ─────────────────────────────────────────────────────────────────
+async function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  if (!q) { showToast('Type something to search!'); return; }
+  showToast('🔍 Searching for "' + q + '"...');
+  loadResources(q, currentType);
+}
+document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+
+// ── Upload form ────────────────────────────────────────────────────────────
+function toggleUploadForm() {
+  if (!token) { showToast('Please login first!'); openModal('login'); return; }
+  const f = document.getElementById('uploadForm');
+  f.classList.toggle('show');
+  if (f.classList.contains('show')) {
+    document.querySelector('.upload-title').textContent = 'Fill in the details below';
+    f.scrollIntoView({behavior:'smooth'});
+  }
+}
+
+async function submitUpload() {
+  const title = document.getElementById('upTitle').value.trim();
+  const subject = document.getElementById('upSubject').value.trim();
+  const fileUrl = document.getElementById('upUrl').value.trim();
+  const type = document.getElementById('upType').value;
+  const category = document.getElementById('upCategory').value;
+  if (!title || !subject || !fileUrl || !type || !category) {
+    showToast('Please fill all required fields!'); return;
+  }
+  try {
+    const res = await fetch(`${API}/resources`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify({
+        title, subject, type, category,
+        courseCode: document.getElementById('upCourseCode').value.trim(),
+        professor: document.getElementById('upProfessor').value.trim(),
+        tags: document.getElementById('upTags').value.trim(),
+        videoUrl: fileUrl,
+        description: title,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) { showToast(data.error || 'Upload failed.'); return; }
+    showToast('🎉 Resource uploaded successfully!');
+    document.getElementById('uploadForm').classList.remove('show');
+    loadAllResources();
+    loadResources();
+  } catch(err) { showToast('⚠️ Upload failed. Check your connection.'); }
+}
+
+// ── AI Assistant ───────────────────────────────────────────────────────────
+function toggleAI() {
+  document.getElementById('aiPanel').classList.toggle('open');
+}
+
+async function sendAI() {
+  const input = document.getElementById('aiInput');
+  const q = input.value.trim();
+  if (!q) return;
+
+  input.value = '';
+
+  const msgs = document.getElementById('aiMessages');
+
+  // User message
+  const userDiv = document.createElement("div");
+  userDiv.className = "ai-msg user";
+  userDiv.textContent = q;
+  msgs.appendChild(userDiv);
+
+  // Typing indicator
+  const typing = document.createElement("div");
+  typing.className = "ai-msg bot typing";
+  typing.id = "typingIndicator";
+  typing.innerHTML = `
+    <div class="ai-dot"></div>
+    <div class="ai-dot"></div>
+    <div class="ai-dot"></div>
+  `;
+  msgs.appendChild(typing);
+
+  msgs.scrollTop = msgs.scrollHeight;
+
+  try {
+    const res = await fetch(`${API}/ai`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message: q })
+    });
+
+    const data = await res.json();
+
+    document.getElementById('typingIndicator')?.remove();
+
+    const botDiv = document.createElement("div");
+    botDiv.className = "ai-msg bot";
+    botDiv.textContent = data.reply || "No response from AI";
+    msgs.appendChild(botDiv);
+
+  } catch (err) {
+    console.error(err);
+
+    document.getElementById('typingIndicator')?.remove();
+
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "ai-msg bot";
+    errorDiv.textContent = "⚠️ AI server not responding. Check backend.";
+    msgs.appendChild(errorDiv);
+  }
+
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ── Scroll reveal ──────────────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── QUIZ SYSTEM ─────────────────────────
+let quizQuestions = [];
+let currentQ = 0;
+let answers = [];
+let quizSubject = "";
+
+// Open Quiz
+async function openQuiz(subject = "dsa") {
+  quizSubject = subject;
+
+  document.getElementById('quizModal').classList.add('open');
+  document.getElementById('quizContainer').innerHTML = "Loading Quiz...";
+  document.getElementById('quizResult').innerHTML = "";
+
+  const res = await fetch(`${API}/quiz/${subject}`);
+  const data = await res.json();
+
+  quizQuestions = data.questions;
+  currentQ = 0;
+  answers = [];
+
+  showQuestion();
+}
+// Show Question
+function showQuestion() {
+
+  const q = quizQuestions[currentQ];
+
+  let html = `
+    <div class="quiz-box">
+
+      <div class="quiz-progress">
+        Question ${currentQ + 1} of ${quizQuestions.length}
+      </div>
+
+      <div class="quiz-question">
+        ${q.question}
+      </div>
+
+      <div class="quiz-options">
+  `;
+
+  q.options.forEach(opt => {
+
+    html += `
+      <div class="quiz-option" data-answer="${opt}">
+        ${opt}
+      </div>
+    `;
+  });
+
+  html += `
+      </div>
+
+      <button
+        class="btn-primary"
+        id="nextBtn"
+        disabled>
+
+        ${currentQ === quizQuestions.length - 1
+          ? "Submit Quiz"
+          : "Next Question"}
+
+      </button>
+
+    </div>
+  `;
+
+  document.getElementById("quizContainer").innerHTML = html;
+
+  const options =
+    document.querySelectorAll(".quiz-option");
+
+  options.forEach(option => {
+
+    option.addEventListener("click", () => {
+
+      options.forEach(o =>
+        o.classList.remove("selected")
+      );
+
+      option.classList.add("selected");
+
+      answers[currentQ] =
+        option.dataset.answer;
+
+      document.getElementById("nextBtn")
+        .disabled = false;
+
+    });
+
+  });
+
+  document
+    .getElementById("nextBtn")
+    .addEventListener("click", nextQuestion);
+}
+
+// Next Question
+function nextQuestion() {
+
+  if (!answers[currentQ]) {
+
+    alert("Please select an answer!");
+
+    return;
+  }
+
+  if (currentQ < quizQuestions.length - 1) {
+
+    currentQ++;
+
+    showQuestion();
+
+  } else {
+
+    submitQuiz();
+
+  }
+}
+// Submit Quiz
+async function submitQuiz() {
+
+  try {
+
+    const res = await fetch(`${API}/quiz/submit`, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        answers: answers,
+        questions: quizQuestions
+      })
+
+    });
+
+    const data = await res.json();
+
+    console.log("Quiz Result:", data);
+
+    document.getElementById("quizContainer").innerHTML = "";
+
+    document.getElementById("quizResult").innerHTML = `
+
+      <div class="quiz-result">
+
+        <h2>🎯 Quiz Completed</h2>
+
+        <div class="quiz-score">
+          ${data.score} / ${quizQuestions.length}
+        </div>
+
+        <div class="quiz-percent">
+          ${data.percent.toFixed(2)}%
+        </div>
+
+        <div class="quiz-status"
+          style="color:${data.passed ? 'lightgreen' : 'red'};">
+
+          ${data.passed ? '✅ Passed' : '❌ Failed'}
+
+        </div>
+
+      </div>
+    `;
+
+   // Show Previous Papers Questions
+if(data.percent >= 60){
+
+  document.getElementById("quizResult").innerHTML += `
+
+    <div class="previous-paper-box">
+
+      <h3 style="margin-top:25px;color:orange;">
+        📘 Previous Year Important Questions
+      </h3>
+
+      <div class="paper-question">
+        1. Explain Binary Search with algorithm and complexity.
+      </div>
+
+      <div class="paper-question">
+        2. Differentiate Stack and Queue with examples.
+      </div>
+
+      <div class="paper-question">
+        3. Write Quick Sort algorithm and explain worst case.
+      </div>
+
+      <div class="paper-question">
+        4. Explain recursion with real-time example.
+      </div>
+
+      <div class="paper-question">
+        5. Compare Merge Sort and Quick Sort.
+      </div>
+
+    </div>
+
+  `;
+}
+  } catch(err) {
+
+    console.log(err);
+
+    alert("Quiz submission failed");
+
+  }
+}
+
+
+// Close Quiz
+function closeQuiz() {
+  document.getElementById('quizModal').classList.remove('open');
+}
+// ── On Load ────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  loadResources();
+  loadAllResources();
+  loadCategories();
+  if (token) {
+    fetch(`${API}/auth/me`, {headers:{Authorization:'Bearer '+token}})
+      .then(r=>r.json())
+      .then(d=>{ if(d.user) setLoggedIn(d.user.name); })
+      .catch(()=>{ token=null; localStorage.removeItem('examboost_token'); });
+  }
+});
+  </script>
+
+  <!-- QUIZ MODAL -->
+<div class="modal-overlay" id="quizModal">
+  <div class="modal" style="width:600px;">
+    <button class="modal-close" onclick="closeQuiz()">✕</button>
+
+    <div class="modal-title">Quiz</div>
+
+    <div id="quizContainer"></div>
+    <div id="quizResult"></div>
+  </div>
+</div>
+
+<!-- AI CHATBOT -->
+
+<div class="ai-chat" id="aiPopup">
+
+  <div class="ai-header">
+    AI Study Assistant
+  </div>
+
+  <div id="chatBox"></div>
+
+  <div class="ai-input">
+
+    <input
+      type="text"
+      id="userInput"
+      placeholder="Ask anything..."
+    >
+
+    <button id="sendBtn">
+      Send
+    </button>
+
+  </div>
+
+</div>
+
+<!-- FLOATING BUTTON -->
+
+<button class="ai-btn" id="aiBtn">
+  
+</button>
+<script>
+
+const aiBtn =
+  document.getElementById("aiBtn");
+
+const aiPopup =
+  document.getElementById("aiPopup");
+
+const sendBtn =
+  document.getElementById("sendBtn");
+
+/* OPEN/CLOSE CHAT */
+
+aiBtn.onclick = function () {
+
+  if (
+    aiPopup.style.display === "flex"
+  ) {
+
+    aiPopup.style.display = "none";
+
+  } else {
+
+    aiPopup.style.display = "flex";
+  }
+};
+
+/* SEND MESSAGE */
+
+sendBtn.onclick = sendMessage;
+
+async function sendMessage() {
+
+  const inputField =
+    document.getElementById("userInput");
+
+  const input =
+    inputField.value.trim();
+
+  if (!input) return;
+
+  const chatBox =
+    document.getElementById("chatBox");
+
+  chatBox.innerHTML += `
+    <div class="user-msg">
+      ${input}
+    </div>
+  `;
+
+  inputField.value = "";
+
+  try {
+
+    const response = await fetch(
+      "http://localhost:5000/api/ai",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+
+        body: JSON.stringify({
+          message: input
+        })
+      }
+    );
+
+    const data =
+      await response.json();
+
+    chatBox.innerHTML += `
+      <div class="ai-msg">
+        ${data.reply || "No response"}
+      </div>
+    `;
+
+  } catch (err) {
+
+    chatBox.innerHTML += `
+      <div class="ai-msg">
+        Backend connection failed
+      </div>
+    `;
+  }
+
+  chatBox.scrollTop =
+    chatBox.scrollHeight;
+}
+
+</script>
+
+
+</body>
+</html>
