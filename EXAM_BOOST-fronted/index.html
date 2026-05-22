@@ -1228,8 +1228,33 @@ function filterByCategory(id, name) {
     .then(data => {
       const icons = {notes:'📄',ppt:'📊','past-paper':'📋',textbook:'📖',video:'🎬',other:'📁'};
       if (!data.resources || data.resources.length === 0) {
-        grid.innerHTML = '<div style="color:var(--muted);">No resources in this category yet.</div>'; return;
-      }
+  data.resources = [
+    {
+      title: "Apna College DSA",
+      type: "video",
+      subject: "DSA",
+      courseCode: "YouTube",
+      views: 12000,
+      fileUrl: "https://www.youtube.com/results?search_query=apna+college+dsa"
+    },
+    {
+      title: "Gate Smashers DBMS",
+      type: "video",
+      subject: "DBMS",
+      courseCode: "YouTube",
+      views: 9800,
+      fileUrl: "https://www.youtube.com/results?search_query=gate+smashers+dbms"
+    },
+    {
+      title: "NPTEL Operating Systems",
+      type: "video",
+      subject: "Operating Systems",
+      courseCode: "NPTEL",
+      views: 7500,
+      fileUrl: "https://nptel.ac.in/courses"
+    }
+  ];
+}
       grid.innerHTML = data.resources.map(r => {
         const safeUrl = (r.fileUrl||'').replace(/'/g,'');
         const safeTitle = (r.title||'').replace(/'/g,'').replace(/"/g,'');
@@ -1699,7 +1724,7 @@ async function sendMessage() {
   try {
 
     const response = await fetch(
-     "https://exam-boost-9qc2.vercel.app/api/ai",
+      "http://localhost:5000/api/ai",
       {
         method: "POST",
 
